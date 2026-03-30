@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Rancho — Un Proyecto de Familia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:   #F5EFE0;
+    --paja:    #E8D9B5;
+    --tierra:  #8B5E3C;
+    --arcilla: #C1703A;
+    --verde:   #3A5C3B;
+    --verde-l: #5A7A50;
+    --negro:   #1C1812;
+    --humo:    #7A6E5F;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--negro);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--verde);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 6vw 8vh;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 30%, rgba(90,122,80,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(139,94,60,0.35) 0%, transparent 60%),
+      linear-gradient(160deg, #2A3E28 0%, #3A5C3B 50%, #2E4830 100%);
+  }
+
+  /* Decorative circles */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,217,181,0.15);
+    top: -200px; right: -200px;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,217,181,0.10);
+    bottom: 60px; right: 80px;
+  }
+
+  .hero-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--paja);
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 0.9;
+    color: var(--cream);
+    position: relative;
+    z-index: 2;
+    max-width: 14ch;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--paja);
+  }
+
+  .hero-sub {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(245,239,224,0.7);
+    max-width: 42ch;
+    position: relative;
+    z-index: 2;
+    border-left: 2px solid var(--arcilla);
+    padding-left: 1.2rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,239,224,0.4);
+    z-index: 2;
+  }
+
+  .hero-scroll span {
+    display: block;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(245,239,224,0.4), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.5); opacity: 0.1; }
+  }
+
+  /* ─── INTRO ─── */
+  .intro {
+    background: var(--cream);
+    padding: 10vh 6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: center;
+  }
+
+  .intro-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--arcilla);
+    margin-bottom: 1.5rem;
+  }
+
+  .intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--verde);
+  }
+
+  .intro-text p {
+    font-size: 0.9rem;
+    color: var(--humo);
+    margin-bottom: 1.2rem;
+    max-width: 50ch;
+  }
+
+  .intro-visual {
+    position: relative;
+    height: 420px;
+  }
+
+  .intro-card {
+    position: absolute;
+    background: var(--verde);
+    border-radius: 4px;
+    padding: 2.5rem;
+    color: var(--cream);
+  }
+
+  .intro-card.big {
+    width: 75%;
+    height: 300px;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .intro-card.big::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 80% 20%, rgba(193,112,58,0.3), transparent 60%),
+      linear-gradient(135deg, #2A3E28, #3A5C3B);
+  }
+
+  .intro-card.big .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 300;
+    color: rgba(232,217,181,0.2);
+    position: absolute;
+    top: -1rem;
+    right: 1rem;
+    line-height: 1;
+  }
+
+  .intro-card.big p {
+    font-size: 0.8rem;
+    color: rgba(245,239,224,0.7);
+    position: relative;
+    z-index: 1;
+  }
+
+  .intro-card.big strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 0.3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .intro-card.small {
+    width: 55%;
+    bottom: 0; right: 0;
+    background: var(--arcilla);
+    padding: 1.8rem;
+  }
+
+  .intro-card.small p {
+    font-size: 0.75rem;
+    color: rgba(245,239,224,0.8);
+    line-height: 1.5;
+  }
+
+  .intro-card.small strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  /* ─── PILLARS ─── */
+  .pillars {
+    background: var(--negro);
+    padding: 10vh 0;
+    overflow: hidden;
+  }
+
+  .pillars-header {
+    padding: 0 6vw;
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .pillars-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    color: var(--cream);
+    max-width: 16ch;
+  }
+
+  .pillars-header p {
+    font-size: 0.8rem;
+    color: var(--humo);
+    max-width: 30ch;
+    text-align: right;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .pillar {
+    padding: 4rem 4vw;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.4s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar:last-child { border-right: none; }
+  .pillar:nth-child(3) { border-right: none; }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--verde);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .pillar:hover::before { opacity: 1; }
+
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--arcilla);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar p {
+    font-size: 0.78rem;
+    color: rgba(245,239,224,0.5);
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s;
+  }
+
+  .pillar:hover p { color: rgba(245,239,224,0.8); }
+
+  .pillar-tag {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--arcilla);
+    border: 1px solid rgba(193,112,58,0.4);
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── TALLERES ─── */
+  .talleres {
+    background: var(--paja);
+    padding: 10vh 6vw;
+  }
+
+  .talleres-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 8vw;
+    align-items: start;
+  }
+
+  .talleres h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--verde);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .talleres h2 em { font-style: italic; color: var(--arcilla); }
+
+  .talleres-intro {
+    font-size: 0.85rem;
+    color: var(--humo);
+    max-width: 40ch;
+    margin-bottom: 2rem;
+  }
+
+  .taller-list {
+    list-style: none;
+  }
+
+  .taller-list li {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(139,94,60,0.2);
+    align-items: flex-start;
+  }
+
+  .taller-list li:first-child { border-top: 1px solid rgba(139,94,60,0.2); }
+
+  .taller-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--arcilla);
+    opacity: 0.6;
+    min-width: 2rem;
+    padding-top: 0.2rem;
+  }
+
+  .taller-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--negro);
+    margin-bottom: 0.3rem;
+  }
+
+  .taller-info p {
+    font-size: 0.78rem;
+    color: var(--humo);
+    line-height: 1.6;
+  }
+
+  .talleres-quote {
+    background: var(--verde);
+    border-radius: 4px;
+    padding: 3rem;
+    position: sticky;
+    top: 4rem;
+  }
+
+  .talleres-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+  }
+
+  .talleres-quote blockquote::before {
+    content: '"';
+    font-size: 5rem;
+    color: rgba(193,112,58,0.3);
+    line-height: 0;
+    display: block;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .talleres-quote cite {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--paja);
+    opacity: 0.6;
+    font-style: normal;
+  }
+
+  /* ─── VISION ─── */
+  .vision {
+    background: var(--arcilla);
+    padding: 12vh 6vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vision::before {
+    content: 'TIERRA';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22vw;
+    font-weight: 300;
+    color: rgba(255,255,255,0.05);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+  }
+
+  .vision-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .vision-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(245,239,224,0.6);
+    margin-bottom: 2rem;
+  }
+
+  .vision h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+  }
+
+  .vision h2 em {
+    font-style: italic;
+    display: block;
+  }
+
+  .vision p {
+    font-size: 0.9rem;
+    color: rgba(245,239,224,0.75);
+    line-height: 1.9;
+    max-width: 55ch;
+    margin: 0 auto 1.5rem;
+  }
+
+  .vision-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(245,239,224,0.2);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,239,224,0.5);
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── SUELO ─── */
+  .suelo {
+    background: var(--cream);
+    padding: 10vh 6vw;
+  }
+
+  .suelo-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 6vh;
+    gap: 2rem;
+  }
+
+  .suelo-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--verde);
+    max-width: 18ch;
+  }
+
+  .suelo-header p {
+    font-size: 0.8rem;
+    color: var(--humo);
+    max-width: 35ch;
+    text-align: right;
+  }
+
+  .suelo-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .suelo-card {
+    background: white;
+    border-radius: 4px;
+    padding: 2rem 1.8rem;
+    border: 1px solid rgba(139,94,60,0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .suelo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(139,94,60,0.1);
+  }
+
+  .suelo-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--arcilla);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .suelo-card:hover::after { transform: scaleX(1); }
+
+  .suelo-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .suelo-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--verde);
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+  }
+
+  .suelo-card p {
+    font-size: 0.75rem;
+    color: var(--humo);
+    line-height: 1.7;
+  }
+
+  /* ─── CTA ─── */
+  .cta {
+    background: var(--verde);
+    padding: 12vh 6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: center;
+  }
+
+  .cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+
+  .cta h2 em {
+    font-style: italic;
+    color: var(--paja);
+    display: block;
+  }
+
+  .cta-right p {
+    font-size: 0.85rem;
+    color: rgba(245,239,224,0.65);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .cta-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cta-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .cta-detail-icon {
+    font-size: 1.1rem;
+    min-width: 2rem;
+    padding-top: 0.1rem;
+  }
+
+  .cta-detail-text strong {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--paja);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+  }
+
+  .cta-detail-text span {
+    font-size: 0.75rem;
+    color: rgba(245,239,224,0.5);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--negro);
+    padding: 3rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: 0.08em;
+  }
+
+  footer .logo span {
+    color: var(--arcilla);
+  }
+
+  footer p {
+    font-size: 0.65rem;
+    color: var(--humo);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .intro, .cta { grid-template-columns: 1fr; }
+    .intro-visual { height: 280px; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .pillar:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.07); }
+    .pillar:nth-child(4) { border-right: 1px solid rgba(255,255,255,0.07); }
+    .pillar:nth-child(5), .pillar:nth-child(6) { border-right: none; }
+    .talleres-inner { grid-template-columns: 1fr; }
+    .talleres-quote { position: static; }
+    .suelo-cards { grid-template-columns: 1fr 1fr; }
+    .pillars-header { flex-direction: column; align-items: flex-start; }
+    .pillars-header p { text-align: left; }
+    .suelo-header { flex-direction: column; align-items: flex-start; }
+    .suelo-header p { text-align: left; }
+    .vision-stats { gap: 2rem; flex-wrap: wrap; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .suelo-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tag">Santo Tomás Apipilhuasco · Tepetlaoxtoc · Estado de México</p>
+  <h1>El <em>rancho</em><br>vuelve a vivir.</h1>
+  <p class="hero-sub">
+    Un proyecto familiar de regeneración de la tierra, construcción con materiales naturales y producción de alimentos sanos — para las generaciones que vienen.
+  </p>
+  <div class="hero-scroll">
+    <p>leer</p>
+    <span></span>
+  </div>
+</section>
+
+<!-- ─── INTRO ─── -->
+<section class="intro">
+  <div class="intro-text fade-in">
+    <p class="intro-label">¿Qué es esto?</p>
+    <h2>Un rancho que produce, que enseña y que sana la tierra.</h2>
+  </div>
+  <div class="intro-right fade-in">
+    <p>Tenemos en las manos una de las cosas más valiosas que puede tener una familia: tierra. Y la idea es sencilla — devolverle la vida que tuvo, pero con todo lo que hoy sabemos sobre cómo trabajarla mejor.</p>
+    <p>No se trata de un negocio en el sentido convencional. Se trata de construir un patrimonio vivo: suelo fértil, monte limpio, agua que se queda, animales que pastan sin destruir, y cosechas que alimentan.</p>
+    <p>Y en el camino, compartir todo eso con quien quiera aprender.</p>
+    <div class="intro-visual">
+      <div class="intro-card big">
+        <span class="num" style="font-size:4rem; opacity:0.12;">✦</span>
+        <strong>Terreno familiar</strong>
+        <p>con potencial agroecológico, silvopastoril y de restauración ecológica</p>
+      </div>
+      <div class="intro-card small">
+        <strong>Un proyecto de largo plazo</strong>
+        <p>Construido despacio, en fases, con la familia y con quienes quieran sumarse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PILLARS ─── -->
+<section class="pillars">
+  <div class="pillars-header fade-in">
+    <h2>Cinco ejes que lo sostienen todo</h2>
+    <p>Cada eje es independiente, pero juntos forman un sistema que se alimenta a sí mismo.</p>
+  </div>
+  <div class="pillars-grid" style="grid-template-columns: repeat(3,1fr);">
+
+    <div class="pillar fade-in">
+      <p class="pillar-num">01</p>
+      <span class="pillar-icon">🌿</span>
+      <h3>Restauración de la Tierra</h3>
+      <p>Recuperar la cubierta vegetal nativa, el equilibrio hídrico y la vida microbiana del suelo. Monte sano y suelo vivo son la base de todo lo demás: sin ellos, ningún otro eje funciona.</p>
+      <span class="pillar-tag">Biodiversidad · Agua · Suelo Vivo</span>
+    </div>
+
+    <div class="pillar fade-in">
+      <p class="pillar-num">02</p>
+      <span class="pillar-icon">🧱</span>
+      <h3>Talleres de Bioconstrucción</h3>
+      <p>Construir con tierra, piedra, madera y fibras naturales. Recuperar saberes y enseñarlos. Las instalaciones del rancho son también aulas vivas para quienes quieran aprender.</p>
+      <span class="pillar-tag">Adobe · Bajareque · Paja</span>
+    </div>
+
+    <div class="pillar fade-in">
+      <p class="pillar-num">03</p>
+      <span class="pillar-icon">🌽</span>
+      <h3>Cultivos Agroecológicos</h3>
+      <p>Milpa, huerto diversificado, policultivos — sin agroquímicos. La tierra bien manejada produce más que la tierra forzada, y lo hace durante generaciones, no una sola temporada.</p>
+      <span class="pillar-tag">Milpa · Huerto · Semillas</span>
+    </div>
+
+    <div class="pillar fade-in">
+      <p class="pillar-num">04</p>
+      <span class="pillar-icon">🥦</span>
+      <h3>Alimentación Sana</h3>
+      <p>Lo que se produce en el rancho llega a la mesa. Conservas, deshidratados, fermentados — transformar la cosecha en alimentos que nutren de verdad y que se pueden guardar o compartir.</p>
+      <span class="pillar-tag">Cosecha · Conservas · Comunidad</span>
+    </div>
+
+    <div class="pillar fade-in">
+      <p class="pillar-num">05</p>
+      <span class="pillar-icon">🐄</span>
+      <h3>Pastoreo Regenerativo</h3>
+      <p>Animales que pastorean en rotación, dejando que el pasto se recupere entre cada ciclo. Una técnica antigua, validada hoy por la ciencia, que mejora el suelo mientras produce carne y leche.</p>
+      <span class="pillar-tag">Rotación · Carga Animal · Pasto</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── TALLERES ─── -->
+<section class="talleres">
+  <div class="talleres-inner">
+    <div class="fade-in">
+      <p class="intro-label" style="color:var(--arcilla); font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:1.5rem;">Talleres &amp; Formación</p>
+      <h2>Aprender <em>haciendo</em>,<br>en el rancho.</h2>
+      <p class="talleres-intro">
+        Los talleres no son un "extra" — son parte esencial del modelo. Cada construcción, cada siembra y cada cosecha puede ser una clase para familias, estudiantes o comunidades cercanas.
+      </p>
+      <ul class="taller-list">
+        <li>
+          <span class="taller-num">T1</span>
+          <div class="taller-info">
+            <h4>Construcción con tierra cruda</h4>
+            <p>Adobe, tapial y bajareque. Desde la selección del suelo hasta el levantamiento de muros. Teoría y práctica en dos días.</p>
+          </div>
+        </li>
+        <li>
+          <span class="taller-num">T2</span>
+          <div class="taller-info">
+            <h4>Diseño de milpa y policultivos</h4>
+            <p>Planificación de la parcela, selección de variedades criollas, asociación de cultivos y manejo sin insumos externos.</p>
+          </div>
+        </li>
+        <li>
+          <span class="taller-num">T3</span>
+          <div class="taller-info">
+            <h4>Composta y biofertilizantes</h4>
+            <p>Vermicomposta, compostas termofílicas, bocashi y bioles. Producir los insumos en el mismo rancho.</p>
+          </div>
+        </li>
+        <li>
+          <span class="taller-num">T4</span>
+          <div class="taller-info">
+            <h4>Manejo holístico del ganado</h4>
+            <p>Introducción al pastoreo en rotación, diseño de potreros y evaluación del estado del pasto.</p>
+          </div>
+        </li>
+        <li>
+          <span class="taller-num">T5</span>
+          <div class="taller-info">
+            <h4>Fermentación y conservas</h4>
+            <p>Procesar lo cosechado: fermentos, deshidratados, encurtidos. Alargar la temporada y reducir el desperdicio.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="talleres-quote fade-in">
+      <blockquote>
+        Cuidar la tierra no es un sacrificio — es el acto más inteligente que puede hacer una familia que piensa en sus hijos.
+      </blockquote>
+      <cite>Principio de Permacultura — Cuida la Tierra</cite>
+
+      <div style="margin-top:2.5rem; border-top:1px solid rgba(245,239,224,0.15); padding-top:2rem;">
+        <p style="font-size:0.75rem; color:rgba(245,239,224,0.6); line-height:1.8; margin-bottom:1rem;">
+          Los talleres pueden abrirse a comunidades locales, escuelas o grupos externos. No se trata solo de generar ingresos — se trata de construir red y de que el conocimiento circule.
+        </p>
+        <p style="font-size:0.75rem; color:rgba(245,239,224,0.4); line-height:1.8;">
+          Tepetlaoxtoc y la región del Acolhuacan tienen una tradición agrícola profunda. Hay comunidad dispuesta a aprender y a compartir.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VISION ─── -->
+<section class="vision">
+  <div class="vision-content fade-in">
+    <p class="vision-label">La visión a largo plazo</p>
+    <h2>No solo un rancho.<br><em>Un patrimonio vivo.</em></h2>
+    <p>
+      El objetivo no es que el rancho sea rentable en dos años. El objetivo es que en diez años sea irreemplazable: con suelo que produzca más que hoy, con agua que no se vaya, con construcciones que duren generaciones y con una comunidad de personas que lo cuidan porque lo entienden.
+    </p>
+    <p>
+      Eso es lo que se construye despacio, con las manos en la tierra, aprendiendo y equivocándose y volviendo a intentar. Y eso es exactamente lo que tenemos las condiciones para hacer.
+    </p>
+      <div class="vision-stats">
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Ejes de trabajo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Generaciones que se benefician</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1</span>
+        <span class="stat-label">Familia, un proyecto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SUELO ─── -->
+<section class="suelo">
+  <div class="suelo-header fade-in">
+    <h2>¿Por qué restaurar el suelo es lo primero?</h2>
+    <p>Sin suelo vivo, nada más funciona. Es la base de todo el sistema.</p>
+  </div>
+  <div class="suelo-cards">
+    <div class="suelo-card fade-in">
+      <span class="suelo-card-icon">🌱</span>
+      <h4>Más materia orgánica</h4>
+      <p>Un suelo con 1% más de materia orgánica retiene hasta 170 mil litros más de agua por hectárea. Menos pérdida en época de secas.</p>
+    </div>
+    <div class="suelo-card fade-in">
+      <span class="suelo-card-icon">💧</span>
+      <h4>Ciclo del agua</h4>
+      <p>La cobertura vegetal y la estructura del suelo sano hacen que el agua se infiltre en lugar de escurrir y erosionar.</p>
+    </div>
+    <div class="suelo-card fade-in">
+      <span class="suelo-card-icon">🔄</span>
+      <h4>Ciclo de nutrientes</h4>
+      <p>Los hongos, bacterias y lombrices del suelo vivo reciclan nutrientes de forma continua. No hay que comprar lo que el suelo ya puede producir.</p>
+    </div>
+    <div class="suelo-card fade-in">
+      <span class="suelo-card-icon">📈</span>
+      <h4>Productividad creciente</h4>
+      <p>A diferencia de la agricultura convencional que agota la tierra, el manejo regenerativo mejora la productividad con cada temporada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta">
+  <div class="fade-in">
+    <h2>Hay tierra.<br>Hay familia.<br><em>¿Hay voluntad?</em></h2>
+  </div>
+  <div class="cta-right fade-in">
+    <p>
+      Este proyecto no necesita que todos participen de la misma manera ni al mismo ritmo. Necesita que quienes quieran sumarse entiendan la visión y se comprometan con ella — cada quien desde donde pueda.
+    </p>
+    <div class="cta-details">
+      <div class="cta-detail">
+        <span class="cta-detail-icon">📍</span>
+        <div class="cta-detail-text">
+          <strong>Ubicación</strong>
+          <span>Santo Tomás Apipilhuasco, Tepetlaoxtoc, Estado de México</span>
+        </div>
+      </div>
+      <div class="cta-detail">
+        <span class="cta-detail-icon">📐</span>
+        <div class="cta-detail-text">
+          <strong>Superficie</strong>
+          <span>Terreno familiar con diversidad de relieves, pendientes y zonas de cultivo</span>
+        </div>
+      </div>
+      <div class="cta-detail">
+        <span class="cta-detail-icon">🗓</span>
+        <div class="cta-detail-text">
+          <strong>Horizonte</strong>
+          <span>Proyecto de largo plazo — primeros resultados tangibles en 2–3 años</span>
+        </div>
+      </div>
+      <div class="cta-detail">
+        <span class="cta-detail-icon">🤝</span>
+        <div class="cta-detail-text">
+          <strong>¿Cómo sumarse?</strong>
+          <span>Con presencia, con conocimiento, con trabajo o con recursos — todas las formas importan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="logo">Apipilhuasco <span>· El Rancho</span></div>
+  <p>Tepetlaoxtoc · Estado de México · Proyecto Familiar</p>
+</footer>
+
+<script>
+  // Intersection observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Staggered fade-in for grid children
+  document.querySelectorAll('.pillars-grid .pillar, .suelo-cards .suelo-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+</script>
+
+</body>
+</html>
